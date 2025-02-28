@@ -22,6 +22,8 @@ LIMIT 10;
 
 --COUNTING THE NUMBER OF DATA WE HAVE--
 select count(*) from retail_sales;
+
+--Data CLEANING----
 --checking null values in each columns ---
 select * from retail_sales
 where transactions_id is Null;
@@ -112,5 +114,24 @@ cogs is null
 or
 total_sale is null;
 
---checing if they are deleted--
+--checking if they are deleted--
 select count(* )from retail_sales;
+
+
+---Data Exploration----
+--nUMBER of sales we have ---
+select count(*) as total_sale from retail_sales;
+--Number of unique customers--
+select count(Distinct customer_id) as total_unique_customers from retail_sales;
+--Number of unique categories--
+select count(distinct category) as total_unique_category from retail_sales;
+--unique categories--
+select distinct(category) as unique_category from retail_sales;
+
+
+---DATA ANALYSIS--- 
+--SQL Query to retrieve all columns for sales made on '2022-11-05'.
+select * from retail_sales where sale_date ='2022-11-05';
+
+--sql query to retrieve all transaction where the category is 'clothing' and the quantity sold is more than 10 in the month of NOV-20.
+select * from retail_sales where category ='clothing' and quantiy >10;
