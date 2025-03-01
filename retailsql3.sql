@@ -133,5 +133,15 @@ select distinct(category) as unique_category from retail_sales;
 --SQL Query to retrieve all columns for sales made on '2022-11-05'.
 select * from retail_sales where sale_date ='2022-11-05';
 
---sql query to retrieve all transaction where the category is 'clothing' and the quantity sold is more than 10 in the month of NOV-20.
-select * from retail_sales where category ='clothing' and quantiy >10;
+--sql query to retrieve all transaction where the category is 'clothing' and the quantity sold is more than 4 in the month of NOV-20.
+select * from retail_sales where category ='clothing' and quantiy >10
+--Alternative method--
+select * from retail_sales where category = 'Clothing' and TO_CHAR(sale_date, 'YYYY-MM') = '2022-11'  AND quantiy >=4;
+
+--- SQL QUERY to calculate the total sles for each category --
+select category, sum(total_sale) from retail_sales group by category;
+
+-- SQL QUERY TO FIND THE AVERAGE AGE OF CUSTOMERS WHO PURCHASED ITEMS FROM THE BEAUTY CATEGORY--
+select round(avg(age)), category from retail_sales where category = 'Beauty'
+group by category;
+
