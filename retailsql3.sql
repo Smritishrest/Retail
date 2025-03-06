@@ -145,3 +145,45 @@ select category, sum(total_sale) from retail_sales group by category;
 select round(avg(age)), category from retail_sales where category = 'Beauty'
 group by category;
 
+select * from retail_sales;
+
+--sQL QUERY TO FIND THE TRANSACTIONS WHERE THE TOTAL SALES IS GREATER THAN 1000.
+select transactions_id, total_sale from retail_sales where total_sale >1000;
+
+--Sql query to find the total number of transactions made by each gender in each category.
+Select count(transactions_id) as No_of_transactions, gender, category from retail_sales
+group by 2,3 
+order by 2;
+
+-- sql query to calculate the average sales for each month. Find the best selling month for each year.
+select year, month,average_sales from(
+select extract(year from sale_date) as year,
+extract(month from sale_date) as month,
+avg(total_sale) as average_sales,
+rank() over (partition by extract(year from sale_date) order by avg(total_sale) desc)
+from retail_sales
+group by 1,2) as t1
+where rank =1;
+
+
+--SQL QUERY TO FID THE TOP 5 CUSTOMERS BASED ON THE HIGHES SALES
+SELECT customer_id, sum(total_sale) as sales from retail_sales
+group by 1
+order by 2 desc limit 5;
+
+--- Sql query to find the no. of  unique customers who  purchased from ecah category--
+select count(distinct(customer_id)), category from retail_sales
+group by 2;
+
+-- sql query to create each shift as number of orders(Example morning <=12, afternoon is betwwen a2 and 17 and eveing>17)
+
+select *,
+case when extract(hour from sale_time) < 12 then 'Morning'
+when extract(hour from sale_time) Between 12 and 17 then 'Afternoon'
+else 'evening'
+end as shift
+from retail_sales;
+
+
+
+
