@@ -51,5 +51,50 @@ from retail_sales
 group by category;
 select * from retail_sales;
 
+-- Profitabaility analysis--
+----Gross profit margin by category---
+
+select * from retail_sales;
+--For gross profit--
+select sum(total_sale) as total_revenue, sum(cogs) as total_cost, (sum(total_sale) - sum(cogs)) as total_gross_profit
+From retail_sales
+group by category;
 
 
+---Most profitable transactions---
+
+select transactions_id,
+sum(total_sale) as total_revenue,
+sum(cogs) as total_cost,
+(sum(total_sale)- sum(cogs)) as gross_profit
+from retail_sales
+group by transactions_id
+order by 3 desc
+limit 5;
+
+
+   --Revenue contribution by category---
+   select sum(total_sale) as total_revenue, category
+   from retail_sales
+   group by category;
+
+
+   ---customer Insights--
+   ---Top 10 highest spending custoemrs---
+   select * from retail_sales;
+   select customer_id, sum(total_sale) from retail_sales
+   group by customer_id
+   order by 2 desc limit 10;
+
+   --Most frequent customers ---
+   select customer_id, count (*) as purchase_count, sum(total_sale) 
+   from retail_sales
+   group by customer_id
+   order by 2 desc limit 10;
+
+
+   --Customr purchase patterns--
+   select customer_id, category,count(*) ,sum(total_sale) from retail_sales
+   group by category, customer_id
+   order by 2;
+   
